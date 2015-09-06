@@ -1,8 +1,15 @@
 avr-protoboard328
 =================
 
-prototyping board for the avr atmega328p
+A prototyping board for the AVR atmega328p. 
 
-![protoboard](https://github.com/alohr/avr-protoboard328/blob/master/protoboard-r2-oshpark-small.png)
+## Images
 
-![protoboard](https://github.com/alohr/avr-protoboard328/blob/master/protoboard-r2-minibread-small.png)
+<p align="center">
+  <img src="images/protoboard-r2-oshpark-small.png" alt="r2 from oshpark"/>
+</p>
+
+<p align="center">
+  <img src="images/protoboard-r2-minibread-small.png" alt="r2 from oshpark w/ mini breadboard"/>
+</p>
+
