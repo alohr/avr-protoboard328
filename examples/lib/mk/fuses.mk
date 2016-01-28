@@ -9,7 +9,7 @@ FUSES_attiny4313_16000000	= -U lfuse:w:0xde:m -U hfuse:w:0xdf:m -U efuse:w:0xff:
 FUSES_attiny861_1000000		= -U lfuse:w:0x62:m -U hfuse:w:0xdf:m -U efuse:w:0xff:m
 
 FUSES_attiny85_1000000		= -U lfuse:w:0x62:m -U hfuse:w:0xdf:m -U efuse:w:0xff:m
-FUSES_attiny85_8000000		= -U lfuse:w:0xe4:m -U hfuse:w:0xdf:m -U efuse:w:0xff:m
+FUSES_attiny85_8000000		= -U lfuse:w:0xe2:m -U hfuse:w:0xdf:m -U efuse:w:0xff:m
 FUSES_attiny85_16000000		= -U lfuse:w:0xef:m -U hfuse:w:0xdf:m -U efuse:w:0xff:m
 FUSES_attiny85_16000000_BOD43	= -U lfuse:w:0xef:m -U hfuse:w:0xdc:m -U efuse:w:0xff:m
 
