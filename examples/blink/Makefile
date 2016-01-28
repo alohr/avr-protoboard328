@@ -2,7 +2,7 @@ include ../lib/mk/fuses.mk
 
 DEVICE     = atmega328p
 CLOCK      = 16000000
-OBJECTS    = main.o
+OBJECTS    = blink.o
 
 USE_AVRISP = 1
 
