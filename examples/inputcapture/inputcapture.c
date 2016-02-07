@@ -161,7 +161,7 @@ int main(void)
 
     for (;;) {
         uint16_t reading = TIMER1_GETVALUE(pulsewidth);
-        // sendhexword(reading);
+        sendhexword(reading);
 
         if (reading > 2000 - PULSEWIDTH_MARGIN) {
             timer2_set_oc2a(0xff);
