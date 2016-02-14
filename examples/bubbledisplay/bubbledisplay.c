@@ -2,6 +2,24 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 
+//                           +-\/-+
+//               reset PC6  1|    |28  PC5 display cathode 3
+// display anode seg A PD0  2|    |27  PC4 display cathode 2
+// display anode seg B PD1  3|    |26  PC3 display cathode 1
+// display anode seg C PD2  4|    |25  PC2 display cathode 0
+// display anode seg D PD3  5|    |24  PC1 
+// display anode seg E PD4  6|    |23  PC0 ADC0 potentiometer
+//                     VCC  7|    |22  GND
+//                     GND  8|    |21  AREF
+//               XTAL1 PB6  9|    |20  AVCC
+//               XTAL2 PB7 10|    |19  PB5
+// display anode seg F PD5 11|    |18  PB4
+// display anode seg G PD6 12|    |17  PB3
+//       push button 2 PD7 13|    |16  PB2 led cathode
+//       push button 1 PB0 14|    |15  PB1 OC1A pwm output
+//                           +----+
+
+
 #if F_CPU == 1000000
   #define TIMER0_PRESCALE 8
 #elif F_CPU == 8000000 || F_CPU == 16000000
