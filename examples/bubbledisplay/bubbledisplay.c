@@ -21,9 +21,9 @@
 
 
 #if F_CPU == 1000000
-  #define TIMER0_PRESCALE 8
+  #define TIMER2_PRESCALE 8
 #elif F_CPU == 8000000 || F_CPU == 16000000
-  #define TIMER0_PRESCALE 64
+  #define TIMER2_PRESCALE 64
 #else
   #error F_CPU not recognized
 #endif
@@ -31,7 +31,7 @@
 #define TIMER1_PRESCALE_ADJUST(x) ((x) << 1)
 
 enum {
-    TIMER0_RESET_TO_400_MICROS = 256 - (F_CPU / TIMER0_PRESCALE / 2500),
+    TIMER2_RESET_TO_400_MICROS = 256 - (F_CPU / TIMER2_PRESCALE / 2500),
 
     PIN_CATHODE_DIGIT_0 = PC2,
     PIN_CATHODE_DIGIT_1 = PC3,
@@ -125,10 +125,10 @@ static void display_set(volatile display_t *d, int value)
     d->value = value;
 }
 
-ISR(TIMER0_OVF_vect)
+ISR(TIMER2_OVF_vect)
 {
     // timer interrupt overflows every 400 microseconds
-    TCNT0 = TIMER0_RESET_TO_400_MICROS;
+    TCNT2 = TIMER2_RESET_TO_400_MICROS;
     display_update(&display);
 }
 
@@ -149,22 +149,22 @@ static void setup(void)
     ADCSRA = _BV(ADEN) | _BV(ADPS2) | _BV(ADPS1) | _BV(ADPS0);
 }
 
-static void setup_timer0(void)
+static void setup_timer2(void)
 {
 #if F_CPU == 1000000
     // prescale /8
-    TCCR0A = 0;
-    TCCR0B = _BV(CS01);
+    TCCR2A = 0;
+    TCCR2B = _BV(CS21);
 #elif F_CPU == 8000000 || F_CPU == 16000000
     // prescale /64
-    TCCR0A = 0;
-    TCCR0B = _BV(CS01) | _BV(CS00);
+    TCCR2A = 0;
+    TCCR2B = _BV(CS22);
 #else
 #error F_CPU not recognized
 #endif
     // overflow interrupt enable
-    TIMSK0 |= _BV(TOIE0);
-    TCNT0 = TIMER0_RESET_TO_400_MICROS;
+    TIMSK2 |= _BV(TOIE2);
+    TCNT2 = TIMER2_RESET_TO_400_MICROS;
     sei();
 }
 
@@ -241,8 +241,9 @@ static int potentiometer_read(analogvalue_t *value)
 
     newvalue.raw = raw / N_READINGS;
 
-    if ((newvalue.raw > value->prevraw && newvalue.raw - value->prevraw > 3) ||
-        (newvalue.raw < value->prevraw && value->prevraw - newvalue.raw > 3)) {
+    if (newvalue.raw <= 3 ||
+        ((newvalue.raw > value->prevraw && newvalue.raw - value->prevraw > 3) ||
+        (newvalue.raw < value->prevraw && value->prevraw - newvalue.raw > 3))) {
 
         value->prevraw = value->raw;
         value->raw = newvalue.raw;
@@ -257,7 +258,7 @@ int main(void)
     analogvalue_t potvalue;
 
     setup();
-    setup_timer0();
+    setup_timer2();
     setup_timer1();
 
     analog_init(&potvalue);
