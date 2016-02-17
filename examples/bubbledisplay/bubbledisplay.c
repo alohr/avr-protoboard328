@@ -32,12 +32,14 @@
 
 enum {
     TIMER0_RESET_TO_400_MICROS = 256 - (F_CPU / TIMER0_PRESCALE / 2500),
+
     PIN_CATHODE_DIGIT_0 = PC2,
     PIN_CATHODE_DIGIT_1 = PC3,
     PIN_CATHODE_DIGIT_2 = PC4,
     PIN_CATHODE_DIGIT_3 = PC5,
     PIN_CATHODES_MASK = (_BV(PIN_CATHODE_DIGIT_0) | _BV(PIN_CATHODE_DIGIT_1) |
                          _BV(PIN_CATHODE_DIGIT_2) | _BV(PIN_CATHODE_DIGIT_3)),
+
     PIN_ANODE_SEG_A = PD0,
     PIN_ANODE_SEG_B = PD1,
     PIN_ANODE_SEG_C = PD2,
@@ -244,7 +246,7 @@ static int potentiometer_read(analogvalue_t *value)
 
         value->prevraw = value->raw;
         value->raw = newvalue.raw;
-        value->v = map(newvalue.raw, 0, 1023, 1000, 2000);
+        value->v = 3000 - map(newvalue.raw, 0, 1023, 1000, 2000);
     }
 
     return value->v;
